@@ -1,0 +1,18 @@
+<div class="choice border">
+    <div class="margin editor border border--color">
+        <h1 class="title choice-title">Editor</h1>
+        <label class="editor__label subtitle choice-text">Title:
+            <input class="editor__field border text padding--lr" [(ngModel)]="title">
+        </label> <br>
+        <label class="editor__label subtitle choice-text">Story:
+            <textarea #storytext class="editor__field border text" (input)="updateStory(storytext.value)"></textarea>
+        </label>
+    </div>
+
+    <h1 class="title choice-title">Preview</h1>
+    <h3 class="subtitle choice-title">{{ title }}</h3>
+    <span *ngFor="let block of preview" class="{{ block.type }} text">
+        <br *ngIf="block.type === 'new-line'">
+        {{ block.content }}
+    </span>
+</div>

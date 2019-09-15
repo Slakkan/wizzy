@@ -1,0 +1,31 @@
+<div class="hero-form border">
+    <div class="hero-info">
+        <label for="heroname" class="margin text hero-label">
+            Name:<input #heroname class="hero-input" [(ngModel)]="hero.name">
+        </label>
+        <label for="herorace" class="margin text hero-label">
+            Race:<input #herorace class="hero-input" [(ngModel)]="hero.race">
+        </label>
+    </div>
+    <div class="hero-stats">
+        <div class="row--space-around">
+            <h1 class="subtitle">STATS</h1>
+            <span class="hero-points text">(points: {{hero.stats.points}} )</span>
+        </div>
+        <label for="strength" class="margin text hero-label">
+            STR: {{hero.stats.str}} <input #strength min="4" max="8" value="hero.stats.str"
+                (change)="calculatePoints('str')" class="hero-input" type="range"
+                [(ngModel)]="hero.stats.str">
+        </label>
+        <label for="dexterity" class="margin text hero-label">
+            DEX: {{hero.stats.dex}} <input #dexterity min="4" max="8" value="hero.stats.dex"
+                (change)="calculatePoints('dex')" class="hero-input" type="range"
+                [(ngModel)]="hero.stats.dex">
+        </label>
+        <label for="intelligence" class="margin text hero-label">
+            INT: {{hero.stats.int}} <input #intelligence min="4" max="8" value="hero.stats.int"
+                (change)="calculatePoints('int')" class="hero-input" type="range"
+                [(ngModel)]="hero.stats.int">
+        </label>
+    </div>
+</div>

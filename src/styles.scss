@@ -1,0 +1,145 @@
+@import 'variables';
+
+body {
+    margin:0;
+    background: $white;
+}
+
+.content-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: $vw-s;
+    margin: 0 auto;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    &--space-around{
+        @extend .row;
+        justify-content: space-around;
+    }
+}
+
+.title {
+    margin: $margin-t-s;
+    font-size: $fs-t-s;
+    font-weight: bold;
+}
+
+.subtitle {
+    margin: $margin-st-s;
+    font-size: $fs-st-s;
+    font-weight: bold;
+}
+
+.text {
+    margin-left: $margin-s;
+    margin-top: $margin-s;
+    font-size: $fs-s;
+    color: $black;
+}
+
+.border {
+    border-radius: $border-rad;
+    &--color {
+        border: 1px solid $black;
+    }
+}
+
+.padding {
+    padding: $pad-h-s $pad-w-s;
+    &--lr {
+        @extend .padding;
+        padding-top: $pad-min !important;
+        padding-bottom: $pad-min !important;
+    }
+}
+
+.margin {
+    margin: $margin-s;
+    &--lr {
+        margin: 0 $margin-s;
+    }
+    &--ud {
+        margin: $margin-s 0;
+    }
+}
+
+textarea {
+    resize: none;
+    background: $white;
+    color: $black;
+    min-height: 20vh;
+    @extend .padding
+}
+
+input {
+    background: $white;
+    color: $black;
+}
+
+@media (min-width: $medium) {
+    .title {
+        margin: $margin-t-m;
+        font-size: $fs-t-m;
+    }
+    
+    .subtitle {
+        margin: $margin-st-m;
+        font-size: $fs-st-m;
+    }
+
+    .text {
+        margin-left: $margin-m;
+        margin-top: $margin-m;
+        font-size: $fs-m;
+    }
+
+    .padding {
+        padding: $pad-h-m $pad-w-m
+    }
+
+    .margin {
+        margin: $margin-m;
+        &--lr {
+            margin: 0 $margin-m;
+        }
+        &--ud {
+            margin: $margin-m 0;
+        }
+    }
+}
+
+@media (min-width: $big) {
+    .title {
+        margin: $margin-t-b;
+        font-size: $fs-t-b;
+    }
+    
+    .subtitle {
+        margin: $margin-st-b;
+        font-size: $fs-st-b;
+    }
+
+    .text {
+        margin-left: $margin-b;
+        margin-top: $margin-b;
+        font-size: $fs-b;
+    }
+
+    .padding {
+        padding: $pad-h-b $pad-w-b
+    }
+
+    .margin {
+        margin: $margin-b;
+        &--lr {
+            margin: 0 $margin-b;
+        }
+        &--ud {
+            margin: $margin-b 0;
+        }
+    }
+}

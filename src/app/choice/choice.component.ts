@@ -37,7 +37,7 @@ export class ChoiceComponent implements OnInit {
     const indexes: number[] = []
     let accumulatedLength = 0
     array.map((e) => {
-      accumulatedLength += e.length
+      accumulatedLength += e.length + 1
       indexes.push(accumulatedLength)
     })
     return indexes
@@ -46,7 +46,7 @@ export class ChoiceComponent implements OnInit {
   storyConverter(text: string | null): void {
     const actionMatches = text.match(/(?<=\*)[^*\s][a-z\s]*[^*\s](?=\*)/gi)
     const actions = actionMatches ? actionMatches : []
-    let actionLastIndex = 0
+    let actionLastIndex = -1
     const actionIndexes = actions.map(action => {
       actionLastIndex = text.indexOf(action, actionLastIndex + 1)
       return actionLastIndex
@@ -61,7 +61,7 @@ export class ChoiceComponent implements OnInit {
 
     const dialogMatches = text.match(/(?<=\-)[^-\s][a-z\s]*[^-\s](?=\-)/gi)
     const dialogs = dialogMatches ? dialogMatches : []
-    let dialogLastIndex = 0
+    let dialogLastIndex = -1
     const dialogsIndexes = dialogs.map(dialog => {
       dialogLastIndex = text.indexOf(dialog, dialogLastIndex + 1)
       return dialogLastIndex
@@ -74,9 +74,9 @@ export class ChoiceComponent implements OnInit {
       }
     })
 
-    const descriptionMatches = text.match(/.?(?<=^|\s)[^\*\-][a-z\s]*[^\*\-](?=\s|$).?/gi)
+    const descriptionMatches = text.match(/.?(?<=^|\s)[^\*\-]?[a-z]+[^\*\-]?(?=\s).?/gi)
     const descriptions = descriptionMatches ? descriptionMatches : []
-    let descriptionLastIndex = 0
+    let descriptionLastIndex = -1
     const descriptionIndexes = descriptions.map(description => {
       descriptionLastIndex = text.indexOf(description, descriptionLastIndex + 1)
       return descriptionLastIndex
@@ -89,7 +89,7 @@ export class ChoiceComponent implements OnInit {
       }
     })
 
-    const newLinesIndexes = this.indexesOf(text, /\r|\n/)
+    const newLinesIndexes = this.indexesOf(text, /[\n\r]/g)
     const newLinesObjects = newLinesIndexes.map((textIndex, index) => {
       return {
         textIndex,

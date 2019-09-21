@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs'
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators'
 
-import { match } from '../types/text'
+import { match } from '../../types/text'
 
 @Component({
   selector: 'choice',
@@ -64,8 +64,8 @@ export class ChoiceComponent implements OnInit {
 
     let startIndex = 0
     const descriptions = others.map(item => {
-      const index = startIndex
-      const endIndex = item.index - item.symbol.length > 0 ? item.index - item.symbol.length : 0
+      const index =  startIndex
+      const endIndex = item.index > 0 ? item.index  : 0
       const content = text.slice(startIndex, endIndex)
       startIndex = item.index + item.length
       return {
@@ -77,7 +77,7 @@ export class ChoiceComponent implements OnInit {
       }
     })
 
-    const lastIndex = others.length > 0 ? others[others.length - 1].index + others[others.length - 1].length + others[others.length - 1].symbol.length : 0
+    const lastIndex = others.length > 0 ? others[others.length - 1].index + others[others.length - 1].length : 0
     const lastContent = text.slice(lastIndex)
     const lastDescription = {
       index: lastIndex,

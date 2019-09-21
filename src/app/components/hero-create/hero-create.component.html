@@ -1,31 +1,32 @@
-<div class="hero-form border">
+
+<form class="hero-form border" [formGroup]="heroForm">
     <div class="hero-info">
         <label for="heroname" class="margin text hero-label">
-            Name:<input #heroname class="hero-input" [(ngModel)]="hero.name">
+            Name:<input #heroname class="hero-input" formControlName="name">
         </label>
         <label for="herorace" class="margin text hero-label">
-            Race:<input #herorace class="hero-input" [(ngModel)]="hero.race">
+            Race:<input #herorace class="hero-input" formControlName="race">
         </label>
     </div>
-    <div class="hero-stats">
+    <div class="hero-stats" formGroupName="stats">
         <div class="row--space-around">
             <h1 class="subtitle">STATS</h1>
-            <span class="hero-points text">(points: {{hero.stats.points}} )</span>
+            <span class="hero-points text">(points: 2 )</span>
         </div>
         <label for="strength" class="margin text hero-label">
-            STR: {{hero.stats.str}} <input #strength min="4" max="8" value="hero.stats.str"
+            STR: {{heroForm.value.stats.str}} <input #strength min="4" max="8"
                 (change)="calculatePoints('str')" class="hero-input" type="range"
-                [(ngModel)]="hero.stats.str">
+                formControlName="str">
         </label>
         <label for="dexterity" class="margin text hero-label">
-            DEX: {{hero.stats.dex}} <input #dexterity min="4" max="8" value="hero.stats.dex"
+            DEX: {{heroForm.value.stats.dex}} <input #dexterity min="4" max="8"
                 (change)="calculatePoints('dex')" class="hero-input" type="range"
-                [(ngModel)]="hero.stats.dex">
+                formControlName="dex">
         </label>
         <label for="intelligence" class="margin text hero-label">
-            INT: {{hero.stats.int}} <input #intelligence min="4" max="8" value="hero.stats.int"
+            INT: {{heroForm.value.stats.int}} <input #intelligence min="4" max="8"
                 (change)="calculatePoints('int')" class="hero-input" type="range"
-                [(ngModel)]="hero.stats.int">
+                formControlName="int">
         </label>
     </div>
-</div>
+</form>

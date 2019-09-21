@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs'
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators'
 
+import { match } from '../types/text'
+
 @Component({
   selector: 'choice',
   templateUrl: './choice.component.html',
   styleUrls: ['./choice.component.scss']
 })
 export class ChoiceComponent implements OnInit {
-  preview: { type: string; content: string; }[];
+  preview: match[];
 
   constructor() { }
 
@@ -22,7 +24,7 @@ export class ChoiceComponent implements OnInit {
     )
 
     this.story$.subscribe({
-      next: (sub) => {
+      next: (sub: string) => {
         this.storyConverter(sub)
       }
     })
@@ -32,72 +34,62 @@ export class ChoiceComponent implements OnInit {
     this.story$.next(text)
   }
 
-  indexesOf(text: string, regExp: RegExp) {
-    const array = text.split(regExp)
-    const indexes: number[] = []
-    let accumulatedLength = 0
-    array.map((e) => {
-      accumulatedLength += e.length + 1
-      indexes.push(accumulatedLength)
+  findPattern(regExp: RegExp, text: string, type: string, symbol: string): match[] {
+    const matches = text.match(regExp)
+    if (!matches) { return [] }
+    let lastIndex = 0
+    const indexes = matches.map(match => {
+      lastIndex = text.indexOf(match, lastIndex + 1)
+      return lastIndex
     })
-    return indexes
+    return indexes.map((index, arrayIndex) => {
+      return {
+        index,
+        length: matches[arrayIndex].length,
+        content: symbol ? matches[arrayIndex].replace(RegExp(`\\${symbol}`, 'g'), '').trim() : null,
+        type,
+        symbol
+      }
+    })
   }
 
   storyConverter(text: string | null): void {
-    const actionMatches = text.match(/(?<=\*)[^*\s][a-z\s]*[^*\s](?=\*)/gi)
-    const actions = actionMatches ? actionMatches : []
-    let actionLastIndex = -1
-    const actionIndexes = actions.map(action => {
-      actionLastIndex = text.indexOf(action, actionLastIndex + 1)
-      return actionLastIndex
-    })
-    const actionsObjects = actionIndexes.map((textIndex, index) => {
+    // FINDS SPECIAL PATTERNS AND RETURNS THEIR RESPECTIVE MATCH[]
+    const actions = this.findPattern(/\*[A-Za-z A-ü]+\*/g, text, 'action', '*')
+    const dialogs = this.findPattern(/\-[A-Za-z A-ü]+\-/g, text, 'dialog', '-')
+    const lineBrakes = this.findPattern(/[\n\r]/g, text, 'linebrake', '')
+
+    // CREATE DESCRIPTIONS MATCH[]
+    const others = actions.concat(dialogs).concat(lineBrakes).sort((a, b) => a.index - b.index)
+
+    let startIndex = 0
+    const descriptions = others.map(item => {
+      const index = startIndex
+      const endIndex = item.index - item.symbol.length > 0 ? item.index - item.symbol.length : 0
+      const content = text.slice(startIndex, endIndex)
+      startIndex = item.index + item.length
       return {
-        textIndex,
-        content: actions[index],
-        type: 'action'
+        index,
+        length: content.length,
+        content,
+        type: 'description',
+        symbol: ''
       }
     })
 
-    const dialogMatches = text.match(/(?<=\-)[^-\s][a-z\s]*[^-\s](?=\-)/gi)
-    const dialogs = dialogMatches ? dialogMatches : []
-    let dialogLastIndex = -1
-    const dialogsIndexes = dialogs.map(dialog => {
-      dialogLastIndex = text.indexOf(dialog, dialogLastIndex + 1)
-      return dialogLastIndex
-    })
-    const dialogsObjects = dialogsIndexes.map((textIndex, index) => {
-      return {
-        textIndex,
-        content: dialogs[index],
-        type: 'dialog'
-      }
-    })
+    const lastIndex = others.length > 0 ? others[others.length - 1].index + others[others.length - 1].length + others[others.length - 1].symbol.length : 0
+    const lastContent = text.slice(lastIndex)
+    const lastDescription = {
+      index: lastIndex,
+      length: lastContent.length,
+      content: lastContent,
+      type: 'description',
+      symbol: ''
+    }
+    descriptions.push(lastDescription)
 
-    const descriptionMatches = text.match(/.?(?<=^|\s)[^\*\-]?[a-z]+[^\*\-]?(?=\s).?/gi)
-    const descriptions = descriptionMatches ? descriptionMatches : []
-    let descriptionLastIndex = -1
-    const descriptionIndexes = descriptions.map(description => {
-      descriptionLastIndex = text.indexOf(description, descriptionLastIndex + 1)
-      return descriptionLastIndex
-    })
-    const descriptionsObjects = descriptionIndexes.map((textIndex, index) => {
-      return {
-        textIndex,
-        content: descriptions[index],
-        type: 'description'
-      }
-    })
 
-    const newLinesIndexes = this.indexesOf(text, /[\n\r]/g)
-    const newLinesObjects = newLinesIndexes.map((textIndex, index) => {
-      return {
-        textIndex,
-        content: '',
-        type: 'new-line'
-      }
-    })
-
-    this.preview = newLinesObjects.concat(descriptionsObjects).concat(dialogsObjects).concat(actionsObjects).sort((a, b) => a.textIndex - b.textIndex)
+    // CHANGES THE PREVIEW WICH IS OF TYPE MATCH[]
+    this.preview = others.concat(descriptions).sort((a, b) => a.index - b.index)
   }
 }

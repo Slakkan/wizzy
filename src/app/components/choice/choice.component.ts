@@ -37,9 +37,10 @@ export class ChoiceComponent implements OnInit {
   findPattern(regExp: RegExp, text: string, type: string, symbol: string): match[] {
     const matches = text.match(regExp)
     if (!matches) { return [] }
-    let lastIndex = 0
+    let lastIndex = -1
     const indexes = matches.map(match => {
-      lastIndex = text.indexOf(match, lastIndex + 1)
+      const search = text.indexOf(match, lastIndex + 1)
+      lastIndex = search > -1 ? search : lastIndex
       return lastIndex
     })
     return indexes.map((index, arrayIndex) => {

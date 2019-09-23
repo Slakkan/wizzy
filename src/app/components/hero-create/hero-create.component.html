@@ -1,32 +1,55 @@
-
-<form class="hero-form border" [formGroup]="heroForm">
+<form class="hero-form border padding" [formGroup]="heroForm">
     <div class="hero-info">
-        <label for="heroname" class="margin text hero-label">
-            Name:<input #heroname class="hero-input" formControlName="name">
+        <label for="heroname" class="text padding hero-label">
+            Name:<input #heroname class="text hero-input" formControlName="name">
         </label>
-        <label for="herorace" class="margin text hero-label">
-            Race:<input #herorace class="hero-input" formControlName="race">
+        <label for="herorace" class="text padding hero-label">
+            Race:<input #herorace class="text hero-input" formControlName="race">
         </label>
     </div>
     <div class="hero-stats" formGroupName="stats">
-        <div class="row--space-around">
+        <div class="row--space-between padding full-width">
             <h1 class="subtitle">STATS</h1>
-            <span class="hero-points text">(points: 2 )</span>
+            <span class="hero-points text">(points: {{ heroForm.value.stats.points }} )</span>
         </div>
-        <label for="strength" class="margin text hero-label">
-            STR: {{heroForm.value.stats.str}} <input #strength min="4" max="8"
-                (change)="calculatePoints('str')" class="hero-input" type="range"
-                formControlName="str">
+        <h3 class="subtitle margin--lr full-width">BODY</h3>
+        <label for="constitution" class="text stat-label">
+            CON: {{ descriptions.constitution[heroForm.value.stats.constitution - 4] }}
+            <input #constitution min="4" max="7" (change)="calculatePoints('constitution', $event.target.valueAsNumber)"
+                class="hero-input" type="range" formControlName="constitution">
         </label>
-        <label for="dexterity" class="margin text hero-label">
-            DEX: {{heroForm.value.stats.dex}} <input #dexterity min="4" max="8"
-                (change)="calculatePoints('dex')" class="hero-input" type="range"
-                formControlName="dex">
+        <label for="agility" class="text stat-label">
+            AGI: {{ descriptions.agility[heroForm.value.stats.agility - 4] }} <input #agility min="4" max="7"
+                (change)="calculatePoints('agility', $event.target.valueAsNumber)" class="hero-input" type="range"
+                formControlName="agility">
         </label>
-        <label for="intelligence" class="margin text hero-label">
-            INT: {{heroForm.value.stats.int}} <input #intelligence min="4" max="8"
-                (change)="calculatePoints('int')" class="hero-input" type="range"
-                formControlName="int">
+        <h3 class="subtitle margin--lr full-width">MIND</h3>
+        <label for="wisdom" class="text stat-label">
+            WIS: {{ descriptions.wisdom[heroForm.value.stats.wisdom - 4] }} <input #wisdom min="4" max="7"
+                (change)="calculatePoints('wisdom', $event.target.valueAsNumber)" class="hero-input" type="range"
+                formControlName="wisdom">
+        </label>
+        <label for="intelligence" class="text stat-label">
+            INT: {{ descriptions.intelligence[heroForm.value.stats.intelligence - 4] }} <input #intelligence min="4"
+                max="7" (change)="calculatePoints('intelligence', $event.target.valueAsNumber)" class="hero-input"
+                type="range" formControlName="intelligence">
+        </label>
+        <h3 class="subtitle margin--lr full-width">SOUL</h3>
+        <label for="willpower" class="text stat-label">
+            WIL: {{ descriptions.willpower[heroForm.value.stats.willpower - 4] }} <input #willpower min="4" max="7"
+                (change)="calculatePoints('willpower', $event.target.valueAsNumber)" class="hero-input" type="range"
+                formControlName="willpower">
+        </label>
+        <label for="charisma" class="text stat-label">
+            CHA: {{ descriptions.charisma[heroForm.value.stats.charisma - 4] }} <input #intelligence min="4" max="7"
+                (change)="calculatePoints('charisma', $event.target.valueAsNumber)" class="hero-input" type="range"
+                formControlName="charisma">
+        </label>
+    </div>
+    <div class="hero-skills padding" formGroupName="skills">
+        <h3 class="subtitle">SKILLS</h3>
+        <label *ngFor="let skill of skills" class="skill-label text">
+            <input type="checkbox">{{ skill }}: {{ heroForm.value.skills[skill] }}
         </label>
     </div>
 </form>

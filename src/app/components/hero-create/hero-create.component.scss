@@ -2,17 +2,61 @@
 
 .hero-form{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     background: $brown;
+    flex-wrap: wrap;
 }
 
-.hero-input {
+.hero-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.hero-stats {
     width: 50%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.hero-skills{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 40%;
+}
+
+
+.hero-input {
+    width: 80%;
+}
+
+.stat-label{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    width: 90%;
 }
 
 .hero-label{
     display: flex;
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    width: 50%;
+}
+
+.skill-label{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+    width: 100%;
 }
 
 .hero-points {
@@ -20,14 +64,14 @@
     font-weight: bold;
 }
 
-.hero-stats {
-    width: 50%
-}
-
-.hero-info {
-    display: flex;
-    flex-direction: row;
-    > .hero-label {
+@media (min-width: $medium) {
+    .stat-label{
+        display: flex;
+        flex-direction: column;
+        margin: 0;
         width: 50%;
+    }
+    .hero-stats {
+        justify-content: space-between;
     }
 }

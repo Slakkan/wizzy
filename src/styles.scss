@@ -20,25 +20,40 @@ body {
         @extend .row;
         justify-content: space-around;
     }
+    &--space-between{
+        @extend .row;
+        justify-content: space-between;
+    }
+}
+
+.full-width{
+    width: 100%
 }
 
 .title {
     margin: $margin-t-s;
     font-size: $fs-t-s;
     font-weight: bold;
+    color: $black;
+    text-align: center;
 }
 
 .subtitle {
     margin: $margin-st-s;
     font-size: $fs-st-s;
     font-weight: bold;
+    color: $black;
+    text-align: center;
 }
 
 .text {
-    margin-left: $margin-s;
-    margin-top: $margin-s;
     font-size: $fs-s;
     color: $black;
+    &--margin {
+        @extend .text;
+        margin-left: $margin-s;
+        margin-top: $margin-s;
+    }
 }
 
 .border {
@@ -67,11 +82,22 @@ body {
     }
 }
 
+.padding {
+    padding: $pad-h-s;
+    &--lr {
+        padding: 0 $pad-w-s;
+    }
+    &--ud {
+        padding: $pad-h-s 0;
+    }
+}
+
 textarea {
     resize: none;
     background: $white;
     color: $black;
     min-height: 20vh;
+    margin: 0;
     @extend .padding
 }
 
@@ -92,9 +118,11 @@ input {
     }
 
     .text {
-        margin-left: $margin-m;
-        margin-top: $margin-m;
         font-size: $fs-m;
+        &--margin {
+            margin-left: $margin-m;
+            margin-top: $margin-m;
+        }
     }
 
     .padding {
@@ -108,6 +136,15 @@ input {
         }
         &--ud {
             margin: $margin-m 0;
+        }
+    }
+    .padding {
+        padding: $pad-h-m;
+        &--lr {
+            padding: 0 $pad-w-m;
+        }
+        &--ud {
+            padding: $pad-h-m 0;
         }
     }
 }
@@ -124,9 +161,11 @@ input {
     }
 
     .text {
-        margin-left: $margin-b;
-        margin-top: $margin-b;
         font-size: $fs-b;
+        &--margin{
+            margin-left: $margin-b;
+            margin-top: $margin-b;
+        }
     }
 
     .padding {
@@ -140,6 +179,16 @@ input {
         }
         &--ud {
             margin: $margin-b 0;
+        }
+    }
+
+    .padding {
+        padding: $pad-h-b;
+        &--lr {
+            padding: 0 $pad-w-b;
+        }
+        &--ud {
+            padding: $pad-h-b 0;
         }
     }
 }

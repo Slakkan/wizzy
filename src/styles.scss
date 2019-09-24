@@ -1,7 +1,11 @@
+@import 'reset';
 @import 'variables';
 
+@media (max-width: $min-width) {
+    *{ display: none }
+}
+
 body {
-    margin:0;
     background: $white;
 }
 
@@ -26,24 +30,52 @@ body {
     }
 }
 
+.column {
+    display: flex;
+    flex-direction: column;
+    &--space-around{
+        @extend .column;
+        justify-content: space-around;
+    }
+    &--space-between{
+        @extend .column;
+        justify-content: space-between;
+    }
+}
+
 .full-width{
-    width: 100%
+    width: 100%;
+}
+
+.almost-full-width{
+    width: 70%;
+}
+
+.half-width{
+    width: 50%;
 }
 
 .title {
-    margin: $margin-t-s;
     font-size: $fs-t-s;
+    height: $fs-t-s;
     font-weight: bold;
     color: $black;
     text-align: center;
 }
 
 .subtitle {
-    margin: $margin-st-s;
     font-size: $fs-st-s;
+    height: $fs-st-s;
     font-weight: bold;
     color: $black;
     text-align: center;
+}
+
+.tag {
+    @extend .text;
+    font-weight: bolder;
+    text-align: center;
+    height: $fs-s;
 }
 
 .text {
@@ -54,6 +86,10 @@ body {
         margin-left: $margin-s;
         margin-top: $margin-s;
     }
+}
+
+.text-align-left{
+    text-align: left
 }
 
 .border {
@@ -70,7 +106,13 @@ body {
         padding-top: $pad-min !important;
         padding-bottom: $pad-min !important;
     }
+    &--ud {
+        @extend .padding;
+        padding-left: $pad-min !important;
+        padding-right: $pad-min !important;
+    }
 }
+
 
 .margin {
     margin: $margin-s;
@@ -79,6 +121,12 @@ body {
     }
     &--ud {
         margin: $margin-s 0;
+    }
+    &--b {
+        margin-bottom: $margin-s;
+    }
+    &--r {
+        margin-right: $margin-s;
     }
 }
 
@@ -92,29 +140,37 @@ body {
     }
 }
 
+input {
+    background: $white;
+    color: $black;
+}
+
 textarea {
     resize: none;
     background: $white;
     color: $black;
     min-height: 20vh;
     margin: 0;
-    @extend .padding
 }
 
-input {
-    background: $white;
-    color: $black;
+button {
+    background: none;
+    border: none;
 }
 
 @media (min-width: $medium) {
     .title {
-        margin: $margin-t-m;
         font-size: $fs-t-m;
+        height: $fs-t-m;
     }
     
     .subtitle {
-        margin: $margin-st-m;
         font-size: $fs-st-m;
+        height: $fs-st-m;
+    }
+
+    .tag {
+        height: $fs-m;
     }
 
     .text {
@@ -137,6 +193,12 @@ input {
         &--ud {
             margin: $margin-m 0;
         }
+        &--b {
+            margin-bottom: $margin-m;
+        }
+        &--r {
+            margin-right: $margin-m;
+        }
     }
     .padding {
         padding: $pad-h-m;
@@ -151,13 +213,17 @@ input {
 
 @media (min-width: $big) {
     .title {
-        margin: $margin-t-b;
         font-size: $fs-t-b;
+        height: $fs-t-b;
     }
     
     .subtitle {
-        margin: $margin-st-b;
         font-size: $fs-st-b;
+        height: $fs-st-b;
+    }
+
+    .tag {
+        height: $fs-b;
     }
 
     .text {
@@ -179,6 +245,12 @@ input {
         }
         &--ud {
             margin: $margin-b 0;
+        }
+        &--b {
+            margin-bottom: $margin-b;
+        }
+        &--r {
+            margin-right: $margin-b;
         }
     }
 

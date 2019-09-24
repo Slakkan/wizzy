@@ -15,22 +15,28 @@ export class HeroCreateComponent implements OnInit, OnDestroy {
 
   previousValues: Hero
 
+  stats: ['constitution', 'agility', 'wisdom', 'intelligence', 'willpower', 'charisma']
+
   descriptions = {
     constitution: ['Weak', 'Healthy', 'Fit', 'Muscular'],
-    agility: ['Clumsy', 'Able', 'Skilled', 'Talented'],
+    agility: ['Clumsy', 'Dextrous', 'Skilled', 'Talented'],
     wisdom: ['Careless', 'Awake', 'Clever', 'Wise'],
     intelligence: ['Dumb', 'Capable', 'Smart', 'Genious'],
     willpower: ['Slouch', 'Disciplined', 'Resolute', 'Fierce'],
     charisma: ['Ungraceful', 'Likeable', 'Appealing', 'Charming']
   }
 
-  skills = ['athletics', 'climbing', 'grapple', 'acrobatics', 'stealth','misdeeds', 
-  'perception', 'medicine', 'insight', 'concentration', 'knowledge','crafts',
-  'rescilience', 'profession', 'resolve', 'persuasion', 'deceit', 'perform']
+  constitutionSkills = ['athletics', 'climbing', 'grapple']
+  agilitySkills = ['acrobatics', 'stealth','misdeeds']
+  wisdomSkills = ['perception', 'medicine', 'insight'] 
+  intelligenceSkills = ['concentration', 'knowledge','crafts']
+  willpowerSkills = ['rescilience', 'profession', 'resolve']
+  charismaSkills = ['persuasion', 'deceit', 'perform']
 
   heroForm = this.fb.group({
     name: ['', Validators.required],
     race: ['', Validators.required],
+    level: 1,
     stats: this.fb.group({
       points: 6,
       constitution: 4,
@@ -41,21 +47,27 @@ export class HeroCreateComponent implements OnInit, OnDestroy {
       charisma: 4
     }),
     skills: this.fb.group({
+      constitutionPoints: 0,
       athletics: 0,
       climbing: 0,
       grapple: 0,
+      agilityPoints: 0,
       acrobatics: 0,
       stealth: 0,
       misdeeds: 0,
+      wisdomPoints: 0,
       perception: 0,
       medicine: 0,
       insight: 0,
+      intelligencePoints: 0,
       concentration: 0,
       knowledge: 0,
       crafts: 0,
+      willpowerPoints: 0,
       rescilience: 0,
       profession: 0,
       resolve: 0,
+      charismaPoints: 0,
       persuasion: 0,
       deceit: 0,
       perform: 0
@@ -89,6 +101,9 @@ export class HeroCreateComponent implements OnInit, OnDestroy {
     this.heroForm.patchValue({
       stats: {
         points: points
+      },
+      skills: {
+        [`${stat}Points`]: value - 4
       }
     })
   }

@@ -1,62 +1,26 @@
 @import 'variables';
 
-.choice {
+.choice{
     background: $brown;
-    padding: $pad-h-s $pad-w-s;
 }
 
-.editor {
-    padding: $pad-h-s $pad-w-s;
-    &__label{
-        display: flex;
-        justify-content: space-around;
-    }
-    &__field{
-        display: flex;
-        flex: 1 1 0;
-        max-width: 65%;
-    }
-}
-
-.choice-title {
-    color: $white;
-    text-align: center;
-}
-
-.choice-text {
+.choice-text{
     color: $white;
 }
 
-.preview {
-    padding: $pad-h-s $pad-w-s;
-    overflow: hidden;
-}
-
-.preview-span{
-    margin: 0;
+.editor-label{
+    align-items: center;
 }
 
 .description{
-    font-weight: 700;
+    font-weight: bold
 }
 
-.dialog {
-    font-style: italic;
-}
-
-.action {
-    font-weight: bold;
+.action{
+    font-weight: bolder;
     color: $orange;
 }
 
-@media (min-width: $medium) {
-    .editor {
-        padding: $pad-h-m $pad-w-m;
-    }
-}
-
-@media (min-width: $big) {
-    .editor {
-        padding: $pad-h-b $pad-w-b;
-    }
+.dialog{
+    font-style: italic;
 }

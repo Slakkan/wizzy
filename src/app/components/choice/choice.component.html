@@ -1,20 +1,19 @@
-<div class="choice border">
-    <div class="margin editor border border--color">
-        <h1 class="title choice-title">Editor</h1>
-        <label class="editor__label subtitle choice-text">Title:
-            <input class="editor__field border text padding--lr" [(ngModel)]="title">
-        </label> <br>
-        <label class="editor__label subtitle choice-text">Story:
-            <textarea #storytext class="editor__field border text" (input)="updateStory(storytext.value)"></textarea>
-        </label>
-    </div>
-
-    <div class="margin preview border border--color">
-        <h1 class="title choice-title">Preview</h1>
-        <h3 class="subtitle choice-title">{{ title }}</h3>
-        <span *ngFor="let block of preview" class="{{ block.type }} text preview-span">
-            <br *ngIf="block.type === 'linebrake'">
-            {{ block.content }}
-        </span>
-    </div>
+<div class="choice margin--b padding border border--color">
+    <h1 class="title margin--b choice-text">Editor</h1>
+    <label class="row--space-around margin--b">
+        <h3 class="subtitle padding--ud choice-text">Title:</h3>
+        <input class="subtitle text-align-left padding--lr almost-full-width" [(ngModel)]="title">
+    </label>
+    <label class="row--space-around margin--b">
+        <h3 class="subtitle padding--ud choice-text">Story:</h3>
+        <textarea #storytext class="border padding--lr text almost-full-width" (input)="updateStory(storytext.value)"></textarea>
+    </label>
+</div>
+<div class="choice margin--b padding border border--color">
+    <h1 class="title margin--b choice-text">Preview</h1>
+    <h3 class="subtitle choice-text">{{ title }}</h3>
+    <span *ngFor="let block of preview" class="{{ block.type }} text">
+        <br *ngIf="block.type === 'linebrake'">
+        {{ block.content }}
+    </span>
 </div>

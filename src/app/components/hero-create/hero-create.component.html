@@ -1,4 +1,4 @@
-<form class="hero-form border padding" [formGroup]="heroForm">
+<form class="hero-form border border--color padding" [formGroup]="heroForm">
     <div class="hero-info">
         <label for="heroname" class="text padding hero-label">
             Name:<input #heroname class="text hero-input" formControlName="name">
@@ -8,11 +8,11 @@
         </label>
     </div>
     <div class="hero-stats" formGroupName="stats">
-        <div class="row--space-between padding full-width">
+        <div class="row--space-between full-width">
             <h1 class="subtitle">STATS</h1>
-            <span class="hero-points text">(points: {{ heroForm.value.stats.points }} )</span>
+            <span class="hero-points tag text">(points: {{ heroForm.value.stats.points }} )</span>
         </div>
-        <h3 class="subtitle margin--lr full-width">BODY</h3>
+        <h3 class="subtitle tag margin--lr full-width">BODY</h3>
         <label for="constitution" class="text stat-label">
             CON: {{ descriptions.constitution[heroForm.value.stats.constitution - 4] }}
             <input #constitution min="4" max="7" (change)="calculatePoints('constitution', $event.target.valueAsNumber)"
@@ -23,7 +23,7 @@
                 (change)="calculatePoints('agility', $event.target.valueAsNumber)" class="hero-input" type="range"
                 formControlName="agility">
         </label>
-        <h3 class="subtitle margin--lr full-width">MIND</h3>
+        <h3 class="subtitle tag margin--lr full-width">MIND</h3>
         <label for="wisdom" class="text stat-label">
             WIS: {{ descriptions.wisdom[heroForm.value.stats.wisdom - 4] }} <input #wisdom min="4" max="7"
                 (change)="calculatePoints('wisdom', $event.target.valueAsNumber)" class="hero-input" type="range"
@@ -34,7 +34,7 @@
                 max="7" (change)="calculatePoints('intelligence', $event.target.valueAsNumber)" class="hero-input"
                 type="range" formControlName="intelligence">
         </label>
-        <h3 class="subtitle margin--lr full-width">SOUL</h3>
+        <h3 class="subtitle tag margin--lr full-width">SOUL</h3>
         <label for="willpower" class="text stat-label">
             WIL: {{ descriptions.willpower[heroForm.value.stats.willpower - 4] }} <input #willpower min="4" max="7"
                 (change)="calculatePoints('willpower', $event.target.valueAsNumber)" class="hero-input" type="range"
@@ -46,10 +46,94 @@
                 formControlName="charisma">
         </label>
     </div>
-    <div class="hero-skills padding" formGroupName="skills">
-        <h3 class="subtitle">SKILLS</h3>
-        <label *ngFor="let skill of skills" class="skill-label text">
-            <input type="checkbox">{{ skill }}: {{ heroForm.value.skills[skill] }}
-        </label>
+    <div class="hero-skills row--space-between" formGroupName="skills">
+        <h3 class=" subtitle full-width margin--b">SKILLS</h3>
+        <div class="margin--b skillset">
+            <div class="full-width row--space-between">
+                <h3 class=" tag margin--b">Constitution</h3>
+                <span>Points: {{ heroForm.value.skills.constitutionPoints }}</span>
+            </div>
+            <label *ngFor="let skill of constitutionSkills" class="skill-label">
+                <div class="skill-container row--space-between margin--b full-width text">
+                    <div>
+                        <input type="checkbox">{{ skill }}:{{ heroForm.value.skills[skill] }}
+                    </div>
+                    <div>
+                        <button class="button-minus border border--color margin--r">-</button>
+                        <button class="button-plus border border--color">+</button>
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="margin--b skillset">
+            <h3 class="tag margin--b full-width">Agility</h3>
+            <label *ngFor="let skill of agilitySkills" class="skill-label">
+                <div class="skill-container row--space-between margin--b full-width text">
+                    <div>
+                        <input type="checkbox">{{ skill }}:{{ heroForm.value.skills[skill] }}
+                    </div>
+                    <div>
+                        <button class="button-minus border border--color margin--r">-</button>
+                        <button class="button-plus border border--color">+</button>
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="margin--b skillset">
+            <h3 class="tag margin--b full-width">Wisdom</h3>
+            <label *ngFor="let skill of wisdomSkills" class="skill-label">
+                <div class="skill-container row--space-between margin--b full-width text">
+                    <div>
+                        <input type="checkbox">{{ skill }}:{{ heroForm.value.skills[skill] }}
+                    </div>
+                    <div>
+                        <button class="button-minus border border--color margin--r">-</button>
+                        <button class="button-plus border border--color">+</button>
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="margin--b skillset">
+            <h3 class="tag margin--b full-width">Intelligence</h3>
+            <label *ngFor="let skill of intelligenceSkills" class="skill-label">
+                <div class="skill-container row--space-between margin--b full-width text">
+                    <div>
+                        <input type="checkbox">{{ skill }}:{{ heroForm.value.skills[skill] }}
+                    </div>
+                    <div>
+                        <button class="button-minus border border--color margin--r">-</button>
+                        <button class="button-plus border border--color">+</button>
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="margin--b skillset">
+            <h3 class="tag margin--b full-width">Willpower</h3>
+            <label *ngFor="let skill of willpowerSkills" class="skill-label">
+                <div class="skill-container row--space-between margin--b full-width text">
+                    <div>
+                        <input type="checkbox">{{ skill }}:{{ heroForm.value.skills[skill] }}
+                    </div>
+                    <div>
+                        <button class="button-minus border border--color margin--r">-</button>
+                        <button class="button-plus border border--color">+</button>
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="margin--b skillset">
+            <h3 class="tag margin--b full-width">Charisma</h3>
+            <label *ngFor="let skill of charismaSkills" class="skill-label">
+                <div class="skill-container row--space-between margin--b full-width text">
+                    <div>
+                        <input type="checkbox">{{ skill }}:{{ heroForm.value.skills[skill] }}
+                    </div>
+                    <div>
+                        <button class="button-minus border border--color margin--r">-</button>
+                        <button class="button-plus border border--color">+</button>
+                    </div>
+                </div>
+            </label>
+        </div>
     </div>
 </form>

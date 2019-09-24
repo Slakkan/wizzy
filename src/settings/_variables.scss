@@ -1,24 +1,25 @@
 // LAYOUT
-$medium: 600px;
+$min-width: 360px;
+$medium: 480px;
 $big: 800px;
 
-$elem-max-width: 800px;
+$elem-max-width: 1024px;
 
-$vw-s: 90vw;
-$vw-m: 85vw;
-$vw-b: 80vw;
+$vw-s: 95vw;
+$vw-m: 90vw;
+$vw-b: 85vw;
 
-$margin-t-s: 10px;
-$margin-t-m: 14px;
-$margin-t-b: 18px;
+$margin-t-s: 8px;
+$margin-t-m: 12px;
+$margin-t-b: 16px;
 
-$margin-st-s: 6px;
-$margin-st-m: 8px;
-$margin-st-b: 10px;
+$margin-st-s: 4px;
+$margin-st-m: 6px;
+$margin-st-b: 8px;
 
-$margin-s: 8px;
-$margin-m: 10px;
-$margin-b: 14px;
+$margin-s: 6px;
+$margin-m: 8px;
+$margin-b: 12px;
 
 $pad-h-s: 6px;
 $pad-h-m: 12px;
@@ -33,17 +34,17 @@ $pad-min: 4px;
 $border-rad: 6px;
 
 // FONT
-$fs-t-s: 24px;
-$fs-t-m: 26px;
-$fs-t-b: 32px;
+$fs-t-s: 26px;
+$fs-t-m: 28px;
+$fs-t-b: 30px;
 
-$fs-st-s: 16px;
-$fs-st-m: 18px;
-$fs-st-b: 22px;
+$fs-st-s: 22px;
+$fs-st-m: 24px;
+$fs-st-b: 26px;
 
-$fs-s: 12px;
-$fs-m: 14px;
-$fs-b: 18px;
+$fs-s: 14px;
+$fs-m: 18px;
+$fs-b: 22px;
 
 //COLORS
 $green: rgba(0, 229, 164, 1);

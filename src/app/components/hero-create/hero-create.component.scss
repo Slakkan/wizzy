@@ -23,11 +23,15 @@
     justify-content: center;
 }
 
+.hero-points {
+    color: $orange;
+}
+
 .hero-skills{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
-    width: 40%;
+    width: 50%;
 }
 
 
@@ -54,24 +58,47 @@
 .skill-label{
     display: flex;
     flex-direction: row;
-    align-items: center;
     margin: 0;
+}
+
+.skillset{
+    display: flex;
+    flex-direction: column;
     width: 100%;
 }
 
-.hero-points {
-    color: $orange;
-    font-weight: bold;
+.skill-container{
+    display: flex;
+}
+
+.button-minus{
+    &:hover{
+        transition: .3s ease;
+        background: $orange;
+    }
+}
+
+.button-plus{
+    &:hover{
+        transition: .3s ease;
+        background: $green;
+    }
 }
 
 @media (min-width: $medium) {
-    .stat-label{
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-        width: 50%;
-    }
+
+}
+
+@media (min-width: $big) {
     .hero-stats {
-        justify-content: space-between;
+        width: 25%;
+    }
+    
+    .hero-skills{
+        width: 75%;
+    }
+    
+    .skillset{
+        width: 45%;
     }
 }
